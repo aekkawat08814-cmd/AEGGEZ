@@ -16,8 +16,9 @@ app.use(express.urlencoded({ extended: false }));
 // ใช้งาน Router
 app.use('/', router);
 
-// รันเซิร์ฟเวอร์
-const PORT = 3000;
+// *** แก้ไขตรงนี้: เพื่อให้รองรับการรันบนเซิร์ฟเวอร์ออนไลน์ ***
+const PORT = process.env.PORT || 3000;
+
 app.listen(PORT, () => {
-    console.log(`Server is running at http://localhost:${PORT}`);
+    console.log(`Server is running at port ${PORT}`);
 });
