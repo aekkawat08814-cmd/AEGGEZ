@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+    <meta charset="UTF-8">
+    <title><%= title %></title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css">
+</head>
+<body class="d-flex bg-light">
+    
+    <%- include('partials/navbar') %>
+
+    <div class="p-5 flex-grow-1">
+        <div class="d-flex justify-content-between align-items-center mb-4">
+            <h3 class="fw-bold mb-0">ประกาศข่าวสาร</h3>
+            <!-- ปุ่มเพิ่มข่าวสาร (เผื่อใช้พัฒนาต่อยอด) -->
+            <button class="btn btn-primary" style="background-color: #114e9e; border: none;">+ เพิ่มข่าวสาร</button>
+        </div>
+
+        <div class="row g-4">
+            <!-- ข่าวที่ 1 -->
+            <div class="col-md-6 col-lg-4">
+                <div class="card h-100 border-0 shadow-sm">
+                    <div class="card-body">
+                        <span class="badge bg-success mb-2">อัปเดตล่าสุด</span>
+                        <h5 class="card-title fw-bold">เปิดรับสมัครแข่งขันแล้ววันนี้!</h5>
+                        <p class="card-text text-muted small">ขอเชิญนักเรียนนักศึกษาแผนกเทคโนโลยีสารสนเทศเข้าร่วมการแข่งขันทักษะการพัฒนาระบบประเมินบุคลากร...</p>
+                    </div>
+                    <div class="card-footer bg-white border-top-0 text-muted small">
+                        <i class="bi bi-clock"></i> 15 ก.ย. 2569
+                    </div>
+                </div>
+            </div>
+
+            <!-- ข่าวที่ 2 -->
+            <div class="col-md-6 col-lg-4">
+                <div class="card h-100 border-0 shadow-sm">
+                    <div class="card-body">
+                        <span class="badge bg-secondary mb-2">ทั่วไป</span>
+                        <h5 class="card-title fw-bold">กำหนดการแข่งขันและการเตรียมตัว</h5>
+                        <p class="card-text text-muted small">ผู้เข้าแข่งขันทุกท่านกรุณาเตรียมความพร้อมตามเกณฑ์กติกาที่ได้แนบไว้ในระบบ และตรวจสอบรายชื่อให้เรียบร้อย...</p>
+                    </div>
+                    <div class="card-footer bg-white border-top-0 text-muted small">
+                        <i class="bi bi-clock"></i> 10 ก.ย. 2569
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+    <meta charset="UTF-8">
+    <title><%= title %></title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css">
+    <style>
+        body { background-color: #f4f6f9; font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; }
+        
+        /* สไตล์กล่องแบนเนอร์สีน้ำเงิน */
+        .hero-banner {
+            background: linear-gradient(135deg, #0a1f3c 0%, #0d386c 100%);
+            border-radius: 15px;
+            color: white;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        /* สไตล์การ์ดสถิติ (ตัวเลข) */
+        .stat-card {
+            border-radius: 12px; border: none; box-shadow: 0 4px 10px rgba(0,0,0,0.03);
+            padding: 20px;
+        }
+        .stat-card h2 { font-weight: bold; margin: 10px 0 0 0; color: #0a192f; font-size: 2.2rem; }
+        .stat-card span.unit { font-size: 0.8rem; color: #6c757d; }
+        
+        /* สไตล์การ์ดทางลัด (กดลิงก์ได้) */
+        .action-card {
+            border-radius: 12px; border: none; box-shadow: 0 4px 10px rgba(0,0,0,0.03);
+            padding: 22px; cursor: pointer; transition: 0.2s; text-decoration: none; display: block; color: inherit;
+        }
+        .action-card:hover { transform: translateY(-4px); box-shadow: 0 8px 15px rgba(0,0,0,0.08); }
+        .action-card h6 { font-weight: bold; color: #0a192f; }
+        .action-card p { font-size: 0.85rem; color: #6c757d; margin-bottom: 25px; }
+    </style>
+</head>
+<body class="d-flex">
+
+    <!-- ดึง Sidebar มาใช้ -->
+    <%- include('partials/navbar') %>
+
+    <!-- พื้นที่เนื้อหาหลัก -->
+    <div class="p-5 flex-grow-1 overflow-auto" style="height: 100vh;">
+        
+        <!-- ส่วน Header ของเพจ -->
+        <div class="d-flex justify-content-between align-items-center mb-4">
+            <div>
+                <h6 class="text-uppercase fw-bold text-muted mb-1" style="font-size: 0.75rem; letter-spacing: 1px;">Dashboard</h6>
+                <h3 class="fw-bold text-dark mb-0">ภาพรวมการแข่งขัน</h3>
+            </div>
+            <!-- ปุ่มนีัจะลิงก์ไปยังหน้าฟอร์มลงทะเบียนที่เราแยกไว้ -->
+            <a href="/register-form" class="btn btn-primary fw-bold px-4 py-2 shadow-sm" style="background-color: #114e9e; border-radius: 8px;">
+                + ลงทะเบียนนักศึกษา
+            </a>
+        </div>
+
+        <!-- แบนเนอร์หลัก -->
+        <div class="hero-banner p-4 p-md-5 mb-4 d-flex justify-content-between align-items-center">
+            <div>
+                <span class="badge rounded-pill border border-light text-light px-3 py-2 mb-3" style="background: rgba(255,255,255,0.1); font-weight: normal;">SKILL COMPETITION</span>
+                <h2 class="fw-bold mb-3">การแข่งขันทักษะการพัฒนาระบบประเมินบุคลากร</h2>
+                <p class="text-light opacity-75 mb-4">ด้วยระบบเทคโนโลยีสารสนเทศสมัยใหม่</p>
+                <div class="d-flex gap-4 small opacity-75">
+                    <span><i class="bi bi-clock"></i> 2569-09-15</span>
+                    <span><i class="bi bi-geo-alt"></i> ห้องปฏิบัติการคอมพิวเตอร์ วิทยาลัยเทคนิคภูเก็ต</span>
+                </div>
+            </div>
+            <!-- รูปภาพฝั่งขวา (ในที่นี้ใช้ไอคอนแทนรูปหุ่นยนต์ AI เพื่อความสวยงาม) -->
+            <div class="d-none d-lg-flex align-items-center justify-content-center" style="width: 200px; height: 130px; background: rgba(255,255,255,0.05); border-radius: 12px;">
+                <i class="bi bi-motherboard text-white opacity-50" style="font-size: 4.5rem;"></i>
+            </div>
+        </div>
+
+        <!-- แถวที่ 1: การ์ดแสดงสถิติ -->
+        <div class="row g-4 mb-4">
+            <div class="col-md-3">
+                <div class="card stat-card h-100">
+                    <span class="text-muted fw-bold small">ผู้ลงทะเบียน</span>
+                    <h2><%= registrantsCount %></h2>
+                    <span class="unit">คน</span>
+                </div>
+            </div>
+            <div class="col-md-3">
+                <div class="card stat-card h-100">
+                    <span class="text-muted fw-bold small">คณะกรรมการ</span>
+                    <h2><%= committeesCount %></h2>
+                    <span class="unit">คน</span>
+                </div>
+            </div>
+            <div class="col-md-3">
+                <div class="card stat-card h-100">
+                    <span class="text-muted fw-bold small">สถานที่แข่งขัน</span>
+                    <h2>01</h2>
+                    <span class="unit">แห่ง</span>
+                </div>
+            </div>
+            <div class="col-md-3">
+                <div class="card stat-card h-100">
+                    <span class="text-muted fw-bold small">สถานะระบบ</span>
+                    <h2 class="text-success"><i class="bi bi-check-circle-fill"></i></h2>
+                    <span class="unit">พร้อมใช้งาน</span>
+                </div>
+            </div>
+        </div>
+
+        <!-- แถวที่ 2: การ์ดทางลัด (กดแล้วไปหน้าอื่น) -->
+        <div class="row g-4">
+            <div class="col-md-4">
+                <a href="/registrants" class="card action-card h-100">
+                    <h6>ผู้ลงทะเบียน</h6>
+                    <p>ดู / แก้ไข / ลบรายชื่อ</p>
+                    <i class="bi bi-arrow-right text-muted"></i>
+                </a>
+            </div>
+            <div class="col-md-4">
+                <a href="/committees" class="card action-card h-100">
+                    <h6>คณะกรรมการ</h6>
+                    <p>จัดการรายชื่อกรรมการ</p>
+                    <i class="bi bi-arrow-right text-muted"></i>
+                </a>
+            </div>
+            <div class="col-md-4">
+                <a href="/rules" class="card action-card h-100">
+                    <h6>กฎกติกา</h6>
+                    <p>เปิดเอกสารการแข่งขัน</p>
+                    <i class="bi bi-arrow-right text-muted"></i>
+                </a>
+            </div>
+        </div>
+
+    </div>
+</body>
+</html>

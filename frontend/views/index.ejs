@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ลงทะเบียนเข้าร่วมการแข่งขัน</title>
+    <!-- เรียกใช้ Bootstrap 5 -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        body, html {
+            height: 100%;
+            margin: 0;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: #f4f6f9;
+        }
+        /* ตกแต่งฝั่งซ้าย (สีน้ำเงินเข้ม) */
+        .left-panel {
+            background: linear-gradient(135deg, #0a1f3c 0%, #0d386c 100%);
+            color: white;
+            position: relative;
+            overflow: hidden;
+        }
+        /* สร้างลายน้ำวงกลมด้านหลังฝั่งซ้ายให้เหมือนในรูป */
+        .left-panel::after {
+            content: '';
+            position: absolute;
+            bottom: -150px;
+            right: -100px;
+            width: 500px;
+            height: 500px;
+            border-radius: 50%;
+            border: 2px solid rgba(255, 255, 255, 0.05);
+            z-index: 0;
+        }
+        .left-content {
+            position: relative;
+            z-index: 1;
+        }
+        /* ตกแต่งการ์ดฟอร์มลงทะเบียน */
+        .form-card {
+            border-radius: 15px;
+            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.08);
+            border: none;
+            max-width: 500px;
+            width: 100%;
+        }
+        .form-control, .form-select {
+            border-radius: 8px;
+            padding: 10px 15px;
+            font-size: 0.9rem;
+        }
+        .btn-primary {
+            background-color: #114e9e;
+            border: none;
+            border-radius: 8px;
+            padding: 12px;
+        }
+        .btn-primary:hover {
+            background-color: #0d3b7a;
+        }
+        .badge-outline {
+            border: 1px solid rgba(255,255,255,0.4);
+            color: #dbe4f0;
+            font-weight: normal;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container-fluid h-100">
+        <div class="row h-100">
+            
+            <!-- ฝั่งซ้าย: ข้อมูลโครงการ (สีน้ำเงิน) -->
+            <div class="col-lg-5 col-md-6 left-panel d-flex flex-column justify-content-between p-5">
+                <div class="left-content mt-3">
+                    <!-- โลโก้ด้านซ้ายบน -->
+                    <img src="/images/logo.jpg" alt="Logo" width="60" class="rounded-circle bg-white p-1 mb-5">
+                    
+                    <h6 class="text-uppercase mb-3" style="letter-spacing: 2px; color: #8ba1ba; font-size: 0.8rem fw-bold;">
+                        Skill Competition 2026
+                    </h6>
+                    <h1 class="fw-bold mb-3" style="line-height: 1.4;">
+                        การแข่งขันทักษะการพัฒนา<br>ระบบประเมินบุคลากร
+                    </h1>
+                    <p class="mb-5 text-light opacity-75">ด้วยระบบเทคโนโลยีสารสนเทศสมัยใหม่</p>
+                    
+                    <div class="d-flex gap-2">
+                        <span class="badge rounded-pill badge-outline px-3 py-2">ระบบลงทะเบียนออนไลน์</span>
+                        <span class="badge rounded-pill badge-outline px-3 py-2">สำหรับนักเรียน / นักศึกษา</span>
+                    </div>
+                </div>
+                
+                <div class="left-content mb-3">
+                    <small class="text-light opacity-50">&copy; 2026 Competition Management System</small>
+                </div>
+            </div>
+
+            <!-- ฝั่งขวา: ฟอร์มลงทะเบียน (สีขาว) -->
+            <div class="col-lg-7 col-md-6 d-flex justify-content-center align-items-center bg-light p-4">
+                <div class="card form-card p-4 p-md-5">
+                    
+                    <!-- ส่วนหัวของฟอร์ม -->
+                    <div class="d-flex justify-content-between align-items-start mb-4">
+                        <div>
+                            <h6 class="text-uppercase fw-bold text-muted" style="letter-spacing: 1px; font-size: 0.75rem;">Registration</h6>
+                            <h4 class="fw-bold text-dark mb-1">ลงทะเบียนเข้าร่วมการแข่งขัน</h4>
+                            <p class="text-muted small mb-0" style="font-size: 0.8rem;">กรอกข้อมูลให้ครบถ้วน แล้วกดปุ่ม "บันทึกการลงทะเบียน"</p>
+                        </div>
+                        <img src="/images/logo.jpg" alt="Logo Small" width="45" class="rounded-circle">
+                    </div>
+
+                    <!-- ฟอร์มส่งข้อมูลไปยัง /register -->
+                    <form action="/register" method="POST">
+                        <div class="mb-3">
+                            <label class="form-label fw-bold small text-dark">อีเมล</label>
+                            <input type="email" class="form-control" name="email" placeholder="example@email.com" required>
+                        </div>
+                        <div class="mb-3">
+                            <label class="form-label fw-bold small text-dark">ชื่อ - นามสกุล</label>
+                            <input type="text" class="form-control" name="fullname" placeholder="นาย/นางสาว ชื่อ นามสกุล" required>
+                        </div>
+                        <div class="mb-3">
+                            <label class="form-label fw-bold small text-dark">เลขประจำตัวนักเรียน / นักศึกษา</label>
+                            <input type="text" class="form-control" name="studentId" placeholder="เช่น 67301010001" required>
+                        </div>
+                        <div class="mb-4">
+                            <label class="form-label fw-bold small text-dark">แผนกวิชา</label>
+                            <select class="form-select" name="department" required>
+                                <option value="" selected disabled>-- เลือกแผนกวิชา --</option>
+                                <option value="เทคโนโลยีสารสนเทศ">เทคโนโลยีสารสนเทศ</option>
+                                <option value="คอมพิวเตอร์โปรแกรมเมอร์">คอมพิวเตอร์โปรแกรมเมอร์</option>
+                            </select>
+                        </div>
+                        
+                        <button type="submit" class="btn btn-primary w-100 fw-bold shadow-sm">✓ บันทึกการลงทะเบียน</button>
+                    </form>
+
+                    <!-- ลิงก์ไปหน้าระบบหลังบ้าน (ดูรายชื่อ) -->
+                    <div class="text-center mt-4">
+                        <a href="/registrants" class="text-decoration-none text-muted" style="font-size: 0.85rem;">
+                            ลงทะเบียนแล้ว? <span class="text-primary fw-bold">ดูรายชื่อผู้ลงทะเบียน &rarr;</span>
+                        </a>
+                    </div>
+
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+</body>
+</html>

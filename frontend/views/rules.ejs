@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title><%= title %></title>
+    <!-- เรียกใช้ Bootstrap 5 และ Bootstrap Icons -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css">
+    
+    <style>
+        body { 
+            background-color: #f4f6f9; 
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; 
+        }
+        .content-wrapper { 
+            padding: 40px; 
+        }
+        /* ตกแต่งกรอบสำหรับใส่ PDF */
+        .pdf-container {
+            border-radius: 12px;
+            overflow: hidden;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.05);
+            height: 75vh; /* ความสูงของกรอบ PDF */
+            background-color: #323639; /* สีพื้นหลังเผื่อโหลด PDF ไม่ขึ้น */
+            border: 1px solid #e9ecef;
+        }
+    </style>
+</head>
+<body class="d-flex">
+
+    <!-- ดึง Navbar เมนูด้านซ้ายมาแสดง -->
+    <%- include('partials/navbar') %>
+
+    <!-- พื้นที่เนื้อหาหลัก -->
+    <div class="content-wrapper flex-grow-1">
+        
+        <!-- ส่วน Header ของหน้า -->
+        <div class="d-flex justify-content-between align-items-start mb-4">
+            <div>
+                <h6 class="text-uppercase fw-bold text-muted mb-1" style="font-size: 0.75rem; letter-spacing: 1px;">RULES & REGULATIONS</h6>
+                <h3 class="fw-bold text-dark mb-2">กฎกติกาการแข่งขัน</h3>
+                <p class="text-muted small mb-0">เอกสารกฎกติกาการแข่งขันฉบับล่าสุด สามารถเปลี่ยนไฟล์ PDF ได้จากเมนูจัดการระบบ</p>
+            </div>
+            
+            <!-- ปุ่มเปิด PDF เต็มจอ (เปิดแท็บใหม่) -->
+            <a href="/Rules and Regulations.pdf" target="_blank" class="btn bg-white text-dark fw-bold shadow-sm" style="border: 1px solid #dee2e6; border-radius: 8px; font-size: 0.9rem; padding: 10px 20px;">
+                <i class="bi bi-box-arrow-up-right me-1" style="font-size: 0.85rem;"></i> เปิด PDF เต็มจอ
+            </a>
+        </div>
+
+        <!-- กรอบแสดงไฟล์ PDF ภายในหน้าเว็บ -->
+        <div class="pdf-container">
+            <!-- ใช้ iframe ดึงไฟล์จากโฟลเดอร์ public มาแสดง -->
+            <iframe src="/Rules and Regulations.pdf" width="100%" height="100%" style="border: none;" title="กฎกติกาการแข่งขัน">
+                <p>เบราว์เซอร์ของคุณไม่รองรับการแสดงผล PDF ภายในหน้าเว็บ กรุณา <a href="/Rules and Regulations.pdf">คลิกที่นี่เพื่อดาวน์โหลด</a></p>
+            </iframe>
+        </div>
+
+    </div>
+
+</body>
+</html>

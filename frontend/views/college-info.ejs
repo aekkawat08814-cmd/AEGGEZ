@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title><%= title %></title>
+    <!-- เรียกใช้ Bootstrap 5 -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css">
+    
+    <style>
+        body { 
+            background-color: #f8f9fa; 
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; 
+        }
+        .content-wrapper { 
+            padding: 40px; 
+            height: 100vh;
+            display: flex;
+            flex-direction: column;
+        }
+        
+        /* ตกแต่งกรอบสไลด์ภาพ */
+        .carousel-container {
+            flex-grow: 1;
+            border-radius: 12px;
+            overflow: hidden;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.08);
+            background-color: #ffffff;
+            border: 1px solid #e9ecef;
+        }
+
+        /* ตกแต่งรูปภาพภายในสไลด์ */
+        .carousel-item img {
+            height: 75vh;
+            object-fit: contain; /* ให้รูปแสดงครบสัดส่วน ไม่ถูกตัด */
+            background-color: #f1f5f9; /* สีพื้นหลังเผื่อรูปไม่เต็มกรอบ */
+        }
+
+        /* ปรับสีปุ่มลูกศรเลื่อนซ้าย-ขวาให้เห็นชัดขึ้น */
+        .carousel-control-prev-icon,
+        .carousel-control-next-icon {
+            background-color: rgba(0, 0, 0, 0.6);
+            border-radius: 50%;
+            padding: 20px;
+        }
+    </style>
+</head>
+<body class="d-flex">
+    
+    <!-- ดึง Sidebar -->
+    <%- include('partials/navbar') %>
+
+    <!-- พื้นที่เนื้อหาหลัก -->
+    <div class="content-wrapper flex-grow-1">
+        
+        <div class="d-flex justify-content-between align-items-center mb-4">
+            <h3 class="fw-bold mb-0 text-dark">ข้อมูลสถานศึกษา</h3>
+            
+            <!-- ปุ่มเปิดหน้าต่างใหม่ -->
+            <a href="https://www.ptc.ac.th/" target="_blank" class="btn bg-white text-primary fw-bold shadow-sm" style="border: 1px solid #0d6efd; border-radius: 8px;">
+                <i class="bi bi-box-arrow-up-right me-1"></i> เปิดหน้าต่างใหม่
+            </a>
+        </div>
+        
+        <!-- โค้ด Carousel ที่คุณส่งมา (นำมาประยุกต์ใส่รูปภาพวิทยาลัย) -->
+        <div class="carousel-container">
+            <div id="carouselExampleControlsNoTouching" class="carousel slide h-100" data-bs-touch="false">
+                <div class="carousel-inner h-100">
+                    
+                    <!-- รูปที่ 1 (ตั้งเป็น active เพื่อให้แสดงเป็นรูปแรก) -->
+                    <div class="carousel-item active h-100">
+                        <img src="/images/wap1.jpg" class="d-block w-100" alt="หน้าแรกวิทยาลัย">
+                    </div>
+                    
+                    <!-- รูปที่ 2 -->
+                    <div class="carousel-item h-100">
+                        <img src="/images/wap2.jpg" class="d-block w-100" alt="แผนกวิชา">
+                    </div>
+                    
+                    <!-- รูปที่ 3 -->
+                    <div class="carousel-item h-100">
+                        <img src="/images/wap3.jpg" class="d-block w-100" alt="การประเมิน ITA">
+                    </div>
+
+                    <!-- รูปที่ 4 -->
+                    <div class="carousel-item h-100">
+                        <img src="/images/wap4.jpg" class="d-block w-100" alt="ระบบบริการออนไลน์">
+                    </div>
+
+                </div>
+                
+                <!-- ปุ่มเลื่อนซ้าย -->
+                <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleControlsNoTouching" data-bs-slide="prev">
+                    <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                    <span class="visually-hidden">Previous</span>
+                </button>
+                
+                <!-- ปุ่มเลื่อนขวา -->
+                <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleControlsNoTouching" data-bs-slide="next">
+                    <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                    <span class="visually-hidden">Next</span>
+                </button>
+            </div>
+        </div>
+
+    </div>
+
+    <!-- Script สำหรับ Bootstrap ให้สไลด์ทำงานได้ -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>

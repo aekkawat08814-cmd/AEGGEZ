@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+    <meta charset="UTF-8">
+    <title><%= title %></title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css">
+    <style>
+        body { background-color: #f4f6f9; font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; }
+        .content-wrapper { padding: 40px; }
+        .card-custom { border-radius: 12px; border: none; box-shadow: 0 4px 15px rgba(0,0,0,0.03); }
+        .table-header { color: #6c757d; font-size: 0.85rem; font-weight: 600; }
+        .table tbody td { padding: 15px 10px; vertical-align: middle; color: #495057; }
+    </style>
+</head>
+<body class="d-flex">
+
+    <%- include('partials/navbar') %>
+
+    <div class="content-wrapper flex-grow-1">
+        <div class="d-flex justify-content-between align-items-start mb-4">
+            <div>
+                <h6 class="text-primary fw-bold mb-1 text-uppercase" style="letter-spacing: 1px; font-size: 0.75rem;">Committees</h6>
+                <h3 class="fw-bold text-dark mb-1">รายชื่อคณะกรรมการ</h3>
+                <p class="text-muted small">บันทึก แก้ไข และจัดการรายชื่อกรรมการ</p>
+            </div>
+            
+            <!-- ปุ่มเปิด Modal เพิ่มกรรมการ -->
+            <button class="btn btn-primary fw-bold shadow-sm" data-bs-toggle="modal" data-bs-target="#addModal" style="border-radius: 8px; padding: 10px 20px; background-color: #114e9e; border: none;">
+                + เพิ่มรายชื่อกรรมการ
+            </button>
+        </div>
+
+        <!-- ตารางแสดงผล -->
+        <div class="card card-custom p-4">
+            <table class="table table-borderless align-middle text-center mb-0">
+                <thead class="border-bottom table-header">
+                    <tr>
+                        <th class="text-start" style="width: 5%;">#</th>
+                        <th class="text-start" style="width: 35%;">ชื่อ - นามสกุล</th>
+                        <th style="width: 25%;">บทบาท/หน้าที่</th>
+                        <th style="width: 20%;">แผนก</th>
+                        <th style="width: 15%;">จัดการ</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <% if (data && data.length > 0) { %>
+                        <% data.forEach((item, index) => { %>
+                            <tr class="border-bottom">
+                                <td class="text-start"><%= index + 1 %></td>
+                                <td class="text-start fw-bold text-dark"><%= item.fullname %></td>
+                                <td><span class="badge bg-light text-dark border"><%= item.role %></span></td>
+                                <td><%= item.department %></td>
+                                <td>
+                                    <!-- ปุ่มเปิด Modal แก้ไข (ส่งค่าพารามิเตอร์ไปแสดงในฟอร์ม) -->
+                                    <button class="btn btn-sm btn-outline-secondary rounded-pill px-3" 
+                                        onclick="openEditModal('<%= item.id %>', '<%= item.fullname %>', '<%= item.role %>', '<%= item.department %>')">
+                                        <i class="bi bi-pencil-square"></i> แก้ไข
+                                    </button>
+                                </td>
+                            </tr>
+                        <% }) %>
+                    <% } else { %>
+                        <tr><td colspan="5" class="text-center py-5 text-muted">ยังไม่มีรายชื่อคณะกรรมการ</td></tr>
+                    <% } %>
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    <!-- 1. Modal สำหรับ "เพิ่มข้อมูล" -->
+    <div class="modal fade" id="addModal" tabindex="-1">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header border-0 pb-0 mt-2 mx-2">
+                    <h5 class="modal-title fw-bold">เพิ่มรายชื่อกรรมการ</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                </div>
+                <form action="/add-committee" method="POST">
+                    <div class="modal-body p-4">
+                        <div class="mb-3">
+                            <label class="form-label fw-bold small">ชื่อ - นามสกุล</label>
+                            <input type="text" name="fullname" class="form-control" required>
+                        </div>
+                        <div class="mb-3">
+                            <label class="form-label fw-bold small">บทบาท/หน้าที่</label>
+                            <input type="text" name="role" class="form-control" placeholder="เช่น ประธาน, กรรมการตัดสิน" required>
+                        </div>
+                        <div class="mb-3">
+                            <label class="form-label fw-bold small">แผนก</label>
+                            <input type="text" name="department" class="form-control" required>
+                        </div>
+                    </div>
+                    <div class="modal-footer border-0 pb-4 pe-4">
+                        <button type="button" class="btn btn-light" data-bs-dismiss="modal">ยกเลิก</button>
+                        <button type="submit" class="btn btn-primary px-4">บันทึกข้อมูล</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <!-- 2. Modal สำหรับ "แก้ไขข้อมูล" -->
+    <div class="modal fade" id="editModal" tabindex="-1">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header border-0 pb-0 mt-2 mx-2">
+                    <h5 class="modal-title fw-bold">แก้ไขรายชื่อกรรมการ</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                </div>
+                <form id="editForm" method="POST">
+                    <div class="modal-body p-4">
+                        <div class="mb-3">
+                            <label class="form-label fw-bold small">ชื่อ - นามสกุล</label>
+                            <input type="text" name="fullname" id="editFullname" class="form-control" required>
+                        </div>
+                        <div class="mb-3">
+                            <label class="form-label fw-bold small">บทบาท/หน้าที่</label>
+                            <input type="text" name="role" id="editRole" class="form-control" required>
+                        </div>
+                        <div class="mb-3">
+                            <label class="form-label fw-bold small">แผนก</label>
+                            <input type="text" name="department" id="editDepartment" class="form-control" required>
+                        </div>
+                    </div>
+                    <div class="modal-footer border-0 pb-4 pe-4">
+                        <button type="button" class="btn btn-light" data-bs-dismiss="modal">ยกเลิก</button>
+                        <button type="submit" class="btn btn-warning px-4">อัปเดตข้อมูล</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <!-- ต้องเรียกใช้ JS ของ Bootstrap เพื่อให้ Modal ทำงาน -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    
+    <!-- Script ดึงข้อมูลมาแสดงในฟอร์มแก้ไข -->
+    <script>
+        function openEditModal(id, fullname, role, department) {
+            // เซ็ต URL ของฟอร์มให้เป็น ID ที่จะแก้ไข
+            document.getElementById('editForm').action = '/edit-committee/' + id;
+            // ยัดค่าเก่าลงไปในช่อง Input
+            document.getElementById('editFullname').value = fullname;
+            document.getElementById('editRole').value = role;
+            document.getElementById('editDepartment').value = department;
+            // สั่งเปิด Modal
+            var editModal = new bootstrap.Modal(document.getElementById('editModal'));
+            editModal.show();
+        }
+    </script>
+</body>
+</html>
